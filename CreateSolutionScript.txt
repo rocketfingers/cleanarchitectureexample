@@ -1,0 +1,49 @@
+mkdir MyCleanArchitecture  
+cd MyCleanArchitecture 
+dotnet new sln -n MyCleanArchitecture 
+
+mkdir src
+mkdir tests
+
+cd src
+
+dotnet new classlib -n ApplicationCore -f netcoreapp3.1 --no-restore
+dotnet new classlib -n Infrastructure -f netcoreapp3.1 --no-restore
+dotnet new webapi -n WebApi -f netcoreapp3.1 --no-restore
+
+dotnet sln ..\MyCleanArchitecture .sln add .\WebApi\
+dotnet sln ..\MyCleanArchitecture .sln add .\ApplicationCore\
+dotnet sln ..\MyCleanArchitecture .sln add .\Infrastructure\
+
+dotnet add .\Infrastructure\ reference .\ApplicationCore\
+dotnet add .\WebApi reference .\ApplicationCore\
+dotnet add .\WebApi reference .\Infrastructure\
+
+rm .\ApplicationCore\Class1.cs
+rm .\Infrastructure\Class1.cs
+rm .\WebApi\WeatherForecast.cs
+rm .\WebApi\Controllers\WeatherForecastController.cs
+
+mkdir .\ApplicationCore\Entities
+mkdir .\ApplicationCore\Exceptions
+mkdir .\ApplicationCore\Interfaces
+mkdir .\ApplicationCore\Services
+mkdir .\ApplicationCore\Specifications
+
+mkdir .\Infrastructure\Data\Configs
+mkdir .\Infrastructure\Data\Migrations
+mkdir .\Infrastructure\Services
+
+cd ..
+dotnet restore
+dotnet build
+
+# New-Item -Name .\ApplicationCore\Entities\emptyFile.txt
+# New-Item -Name .\ApplicationCore\Exceptions\emptyFile.txt
+# New-Item -Name .\ApplicationCore\Interfaces\emptyFile.txt
+# New-Item -Name .\ApplicationCore\Services\emptyFile.txt
+# New-Item -Name .\ApplicationCore\Specifications\emptyFile.txt
+# 
+# New-Item -Name .\Infrastructure\Data\Configs\emptyFile.txt
+# New-Item -Name .\Infrastructure\Data\Migrations\emptyFile.txt
+# New-Item -Name .\Infrastructure\Services\emptyFile.txt
