@@ -11,9 +11,9 @@ dotnet new classlib -n ApplicationCore -f netcoreapp3.1 --no-restore
 dotnet new classlib -n Infrastructure -f netcoreapp3.1 --no-restore
 dotnet new webapi -n WebApi -f netcoreapp3.1 --no-restore
 
-dotnet sln ..\MyCleanArchitecture .sln add .\WebApi\
-dotnet sln ..\MyCleanArchitecture .sln add .\ApplicationCore\
-dotnet sln ..\MyCleanArchitecture .sln add .\Infrastructure\
+dotnet sln ..\MyCleanArchitecture.sln add .\WebApi\
+dotnet sln ..\MyCleanArchitecture.sln add .\ApplicationCore\
+dotnet sln ..\MyCleanArchitecture.sln add .\Infrastructure\
 
 dotnet add .\Infrastructure\ reference .\ApplicationCore\
 dotnet add .\WebApi reference .\ApplicationCore\
