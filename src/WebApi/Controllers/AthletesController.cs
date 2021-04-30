@@ -20,6 +20,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterAthleteRequest request)
         {
+            return Ok(request);
             await _athleteService.RegisterNew(request);
             return Ok();
         }

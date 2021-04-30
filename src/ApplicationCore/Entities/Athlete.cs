@@ -9,7 +9,7 @@
         private Athlete()
         {
         }
-        private Athlete(string name, string surname, float weight, float height) : this()
+        protected Athlete(string name, string surname, float weight, float height) : this()
         {
             Validate(name, surname, weight, height);
 

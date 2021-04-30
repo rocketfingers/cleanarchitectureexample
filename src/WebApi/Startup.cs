@@ -1,5 +1,6 @@
 using ApplicationCore;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Models.Requests;
 using ApplicationCore.Services;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using WebApi.Configs.JsonConverters;
 
 namespace WebApi
 {
@@ -24,10 +26,17 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opts =>
+            {
+                opts.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                opts.JsonSerializerOptions.Converters.Insert(0, new RegisterAthleteRequestJsonConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyCleanArchitecture", Version = "v1" });
+
+                c.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
+
             });
 
             services.AddDbContext<AppDbContext>(options =>
