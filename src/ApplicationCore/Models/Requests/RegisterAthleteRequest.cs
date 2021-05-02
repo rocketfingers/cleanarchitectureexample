@@ -2,9 +2,6 @@
 
 namespace ApplicationCore.Models.Requests
 {
-    [SwaggerDiscriminator("athleteType")]
-    [SwaggerSubType(typeof(RegisterSprinterRequest), DiscriminatorValue = "1")]
-    [SwaggerSubType(typeof(RegisterLifterRequest), DiscriminatorValue = "2")]
     public class RegisterAthleteRequest
     {
         public AthleteType AthleteType { get; set; }

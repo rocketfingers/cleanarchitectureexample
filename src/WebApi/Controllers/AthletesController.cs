@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Models.Requests;
 using ApplicationCore.Models.Results;
@@ -20,7 +21,13 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterAthleteRequest request)
         {
-            return Ok(request);
+            List<Athlete> ble = new List<Athlete>
+            {
+                Athlete.RegisterNew("qwe","qwe",100,100),
+                Sprinter.RegisterNew("qwe","qwe",100,100,12,12,12,12),
+                Lifter.RegisterNew("qwe","qwe",100,100,600),
+            };
+            return Ok(ble);
             await _athleteService.RegisterNew(request);
             return Ok();
         }
